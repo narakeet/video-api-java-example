@@ -7,7 +7,7 @@ public class Example {
   public static void main(String[] args) throws java.io.FileNotFoundException, java.io.IOException {
     String apiKey = Objects.requireNonNull(System.getenv("NARAKEET_API_KEY"), "NARAKEET_API_KEY environment variable is not set");
 
-    String sourceFileInZip = "source.txt";
+    String mainSourceFile = "source.txt";
     String videoDirectory = "video";
 
     VideoApi api = new VideoApi(apiKey);
@@ -18,7 +18,7 @@ public class Example {
     api.uploadZipFile(uploadToken, zipFile);
 
     // start the build task and wait for it to finish
-    VideoApi.BuildTask buildTask = api.requestBuildTask(uploadToken, sourceFileInZip);
+    VideoApi.BuildTask buildTask = api.requestBuildTask(uploadToken, mainSourceFile);
     VideoApi.BuildTaskStatus taskResult = api.pollUntilFinished(buildTask, buildTaskStatus -> {
       // do something more useful here
       System.out.println("Progress: " + buildTaskStatus.getMessage() + " (" + buildTaskStatus.getPercent() + "%)" );
